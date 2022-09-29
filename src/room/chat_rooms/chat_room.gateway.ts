@@ -256,7 +256,7 @@ export class AppGateway {
                         client.emit("roomsOfUser", {"status" : true , "action" : "" ,"message" : `${infos.who}  muted successfully` , "user" :  `${user}`})
                         for (let [key, value] of this.myMap)
                         {
-                            if(value.user_id === infos.who)
+                            if(value.user_id === infos.who  && value.room_id === room)
                                 this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : false, "message" : `muted in ${room}`  , "user" :  infos.who})
                         }
                       
@@ -267,7 +267,7 @@ export class AppGateway {
                             {
                                 for (let [key, value] of this.myMap)
                                 {
-                                    if(value.user_id === infos.who)
+                                    if(value.user_id === infos.who && value.room_id === room)
                                         this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : true, "message" : `unmuted in ${room}`  , "user" :  infos.who})
                                 }
                             }
