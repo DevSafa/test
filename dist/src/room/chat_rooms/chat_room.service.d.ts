@@ -9,7 +9,7 @@ export declare class ChatRoomService {
     update_ban_mute_user_in_room(room: string, who: string): Promise<import(".prisma/client").Users_room>;
     setAdmin(infos: dto_admin, room: string): Promise<import(".prisma/client").Users_room>;
     getOwner(user: string, room: string): Promise<import(".prisma/client").Users_room>;
-    leaveRoom(role: string, room: string, user: string): Promise<import(".prisma/client").Room | import(".prisma/client").Users_room>;
+    leaveRoom(role: string, room: string, user: string): Promise<import(".prisma/client").Users_room | import(".prisma/client").Room>;
     getNewOwner(room: string): Promise<{
         owner: string;
     }>;

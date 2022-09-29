@@ -43,9 +43,9 @@ export class AppGateway {
             {
                 if(await this.chatroomservice.getOwner(user, room))
                     this.myMap.set(client.id, {"user_id" : user , "room_id" : room , "user_role" : "owner"}) ;
-                else if (await this.chatroomservice.add_user_to_room({ from: user, to: room }))
+                else 
                     this.myMap.set(client.id, {"user_id" : user , "room_id" : room , "user_role" : "user"}) ;
-                else
+                if (!await this.chatroomservice.add_user_to_room({ from: user, to: room }))
                     error = 1 ;
                 if(!error)
                 {
@@ -317,7 +317,7 @@ export class AppGateway {
                     }
                     for (let [key, value] of this.myMap)
                     {
-                        if(value.user_id === infos.who)
+                        if(value.user_id === infos.who && value.room_id === room)
                             this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : false, "message" : `banned in ${room}`  , "user" :  infos.who})
                     }
 
@@ -332,7 +332,7 @@ export class AppGateway {
                             }
                             for (let [key, value] of this.myMap)
                             {
-                                if(value.user_id === infos.who)
+                                if(value.user_id === infos.who && value.room_id === room)
                                     this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : true, "message" : `unbanned in ${room}`  , "user" :  infos.who})
                             }
 
