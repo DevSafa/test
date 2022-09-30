@@ -30,8 +30,8 @@ export class dto_msg{
     @IsString()
     msg: string;
 
-    // @IsString()
-    // avatar : string;
+    @IsString()
+    avatar : string;
 
 }
 //----DOne

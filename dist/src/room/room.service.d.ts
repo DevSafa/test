@@ -6,43 +6,43 @@ export declare class RoomService {
     constructor(prisma: PrismaService);
     create_post_room(createRoomDto: createRoomDto, current_user: any): Promise<import(".prisma/client").Room | HttpException>;
     get_rooms(current_user: any): Promise<{
-        room_id: string;
+        id: number;
+        user_role: string;
         room: {
             type: string;
         };
-        id: number;
-        user_role: string;
+        room_id: string;
     }[]>;
     get_public_room(current_user: any): Promise<{
+        owner: string;
         name: string;
         users_room: {
             user_role: string;
         }[];
+        id: number;
         _count: {
             users_room: number;
         };
-        id: number;
-        owner: string;
     }[]>;
     get_protected_room(current_user: any): Promise<{
+        owner: string;
         name: string;
         users_room: {
             user_role: string;
         }[];
+        id: number;
         _count: {
             users_room: number;
         };
-        id: number;
-        owner: string;
     }[]>;
     get_room_msgs(name: room_name, current_user: any): Promise<{
         from: string;
         content_msg: string;
     }[]>;
     post_name_dm(name: dm_room, current_user: any): Promise<{
-        to: string;
         from: string;
         content_msg: string;
+        to: string;
     }[]>;
     getAllUsersOfRoom(infos: room_name, current_user: any): Promise<{
         user: {

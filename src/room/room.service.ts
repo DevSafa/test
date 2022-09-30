@@ -169,7 +169,7 @@ export class RoomService {
 			},
 		})
 
-		console.log(getinfo);
+	//	console.log(getinfo);
 		return (getinfo);
 	}
 

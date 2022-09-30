@@ -63,7 +63,9 @@ export class AppGateway {
         {
             client.emit("roomsOfUser" , {"status" : false , "action" : "" , "message" :`${user} can't join ` , "user" :  `${user}`} );
         }
- 
+        console.log("---------------------JOIN-----------------------")
+        console.log(this.myMap);
+        console.log("-------------------------------------------------");
 
     }
 
@@ -195,7 +197,7 @@ export class AppGateway {
         }
         catch(exception)
         {
-            console.log("errorr\n");
+           // console.log("errorr\n");
             client.emit("roomsOfUser" ,{status : false , "action" : "" , "message": "" ,  "user" : `${user}` })
         }
         if(error)
@@ -229,7 +231,7 @@ export class AppGateway {
     }
     
 
-    @SubscribeMessage('mute')
+    @SubscribeMessage('mute') /* test is done */
     @UsePipes(WSValidationPipe)
     async mute_user(client : Socket , infos : dto_ban_mute)
     {
@@ -285,7 +287,7 @@ export class AppGateway {
     }
 
 
-    @SubscribeMessage('ban')
+    @SubscribeMessage('ban') /* test is done */
     @UsePipes(WSValidationPipe)
     async ban_user(client: Socket, infos: dto_ban_mute){
         const  user = client.data.from;
@@ -366,7 +368,9 @@ export class AppGateway {
             {
                 if(await this.chatroomservice.ban_mute_user_in_room(room , infos.who,"kicked", check.current_role))
                 {
+                
                     client.emit("roomsOfUser" , {"status" : true ,"action" : "leave" ,  "message" : `${infos.who}  kicked successfully` , "user" :  user});
+               
                     for (let [key, value] of this.myMap) 
                     {
                         if (value.user_id === infos.who && value.room_id === room) 
@@ -407,8 +411,8 @@ export class AppGateway {
             {
                 if (await this.chatroomservice.add_msg_room(user, room, msg)) /* send avatar in message */
                 {
-                    console.log("room : " , room );
-                    this.server.to(room).emit("msgToClient" ,{ "from" : user , "msg" : msg.msg  });
+                  //  console.log("room : " , room );
+                    this.server.to(room).emit("msgToClient" ,{ "from" : user , "msg" : msg.msg , "avatar" : msg.avatar });
                 }
             }
         }

@@ -27,7 +27,6 @@ let DmGateway = class DmGateway {
         let to = client.handshake.auth.to;
         from = 'ssghuri';
         to = 'sbarka';
-        console.log("hello\n");
         const join_name = await this.dm_service.check_create_room_dm(from, to);
         client.join(join_name);
         client.emit("instant_messaging", { "status": true, "message": "Join Succes" });

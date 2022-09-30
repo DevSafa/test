@@ -35,7 +35,6 @@ let RoomController = class RoomController {
         return await this.roomService.get_rooms(req.user);
     }
     async get_public_room(req) {
-        console.log("req.user : ", req.user);
         return await this.roomService.get_public_room(req.user);
     }
     async get_protected_room(req) {

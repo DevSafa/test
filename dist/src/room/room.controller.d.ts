@@ -5,43 +5,43 @@ export declare class RoomController {
     constructor(roomService: RoomService);
     post_room(req: any, createroomdto: createRoomDto): Promise<import(".prisma/client").Room | import("@nestjs/common").HttpException>;
     get_rooms(req: any): Promise<{
-        room_id: string;
         room: {
             type: string;
         };
         id: number;
         user_role: string;
+        room_id: string;
     }[]>;
     get_public_room(req: any): Promise<{
+        owner: string;
         name: string;
         users_room: {
             user_role: string;
         }[];
+        id: number;
         _count: {
             users_room: number;
         };
-        id: number;
-        owner: string;
     }[]>;
     get_protected_room(req: any): Promise<{
+        owner: string;
         name: string;
         users_room: {
             user_role: string;
         }[];
+        id: number;
         _count: {
             users_room: number;
         };
-        id: number;
-        owner: string;
     }[]>;
     post_name_room(req: any, room_id: room_name): Promise<{
         from: string;
         content_msg: string;
     }[]>;
     post_name_room_dm(req: any, name: dm_room): Promise<{
-        to: string;
         from: string;
         content_msg: string;
+        to: string;
     }[]>;
     getAllUsersOfRoom(req: any, infos: room_name): Promise<{
         user: {

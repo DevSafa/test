@@ -53,6 +53,10 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], dto_msg.prototype, "msg", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], dto_msg.prototype, "avatar", void 0);
 exports.dto_msg = dto_msg;
 class dto_user_room {
 }

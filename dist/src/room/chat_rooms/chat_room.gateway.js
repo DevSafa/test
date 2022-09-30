@@ -55,6 +55,9 @@ let AppGateway = class AppGateway {
         if (error) {
             client.emit("roomsOfUser", { "status": false, "action": "", "message": `${user} can't join `, "user": `${user}` });
         }
+        console.log("---------------------JOIN-----------------------");
+        console.log(this.myMap);
+        console.log("-------------------------------------------------");
     }
     async leaveRoom(client) {
         const user = client.data.from;
@@ -143,7 +146,6 @@ let AppGateway = class AppGateway {
                 error = 1;
         }
         catch (exception) {
-            console.log("errorr\n");
             client.emit("roomsOfUser", { status: false, "action": "", "message": "", "user": `${user}` });
         }
         if (error)
@@ -188,7 +190,7 @@ let AppGateway = class AppGateway {
                 if (await this.chatroomservice.ban_mute_user_in_room(room, infos.who, "muted", check.user_role)) {
                     client.emit("roomsOfUser", { "status": true, "action": "", "message": `${infos.who}  muted successfully`, "user": `${user}` });
                     for (let [key, value] of this.myMap) {
-                        if (value.user_id === infos.who)
+                        if (value.user_id === infos.who && value.room_id === room)
                             this.server.sockets.sockets.get(key).emit("disableWriting", { "status": false, "message": `muted in ${room}`, "user": infos.who });
                     }
                     setTimeout(async () => {
@@ -196,7 +198,7 @@ let AppGateway = class AppGateway {
                             error = 1;
                         else {
                             for (let [key, value] of this.myMap) {
-                                if (value.user_id === infos.who)
+                                if (value.user_id === infos.who && value.room_id === room)
                                     this.server.sockets.sockets.get(key).emit("disableWriting", { "status": true, "message": `unmuted in ${room}`, "user": infos.who });
                             }
                         }
@@ -304,8 +306,7 @@ let AppGateway = class AppGateway {
         try {
             if (typeof check !== "undefined" && check.user_id === user && check.room_id === room) {
                 if (await this.chatroomservice.add_msg_room(user, room, msg)) {
-                    console.log("room : ", room);
-                    this.server.to(room).emit("msgToClient", { "from": user, "msg": msg.msg });
+                    this.server.to(room).emit("msgToClient", { "from": user, "msg": msg.msg, "avatar": msg.avatar });
                 }
             }
         }

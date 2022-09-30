@@ -11,6 +11,7 @@ export declare class dm_room {
 }
 export declare class dto_msg {
     msg: string;
+    avatar: string;
 }
 export declare class dto_user_room {
     from: string;

@@ -162,7 +162,6 @@ let RoomService = class RoomService {
                 password: false,
             },
         });
-        console.log(getinfo);
         return (getinfo);
     }
     async get_room_msgs(name, current_user) {

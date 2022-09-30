@@ -15,7 +15,7 @@ export class ChatRoomService {
             
           }
       });
-      if (new_join && new_join.state_user === "banned")
+      if (new_join && (new_join.state_user === "banned" || new_join.state_user === "kicked"))
           return null;
       if (new_join === null)
       {
@@ -41,7 +41,8 @@ export class ChatRoomService {
             room_id : to,
             NOT :[
               { state_user : "banned"},
-              { state_user : "muted" }
+              { state_user : "muted"},
+              { state_user : "kicked"}
             ]
           }
       }); 

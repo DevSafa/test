@@ -34,7 +34,7 @@ export class RoomController {
     @UseInterceptors(DataRoomInterceptor)
     @Get('/public_room')
     async get_public_room(@Req() req){
-        console.log("req.user : "  , req.user);        
+   //     console.log("req.user : "  , req.user);        
         return  await this.roomService.get_public_room(req.user);
     }
 
