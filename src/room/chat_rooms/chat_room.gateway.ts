@@ -258,8 +258,8 @@ export class AppGateway {
                         client.emit("roomsOfUser", {"status" : true , "action" : "" ,"message" : `${infos.who}  muted successfully` , "user" :  `${user}`})
                         for (let [key, value] of this.myMap)
                         {
-                            if(value.user_id === infos.who  && value.room_id === room)
-                                this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : false, "message" : `muted in ${room}`  , "user" :  infos.who})
+                            if(value.user_id === infos.who)
+                                this.server.sockets.sockets.get(key).emit("roomsOfUser", {"status" : true , "action" : "" ,"message" : `you are muted at   ${room}` , "user" :  `${user}`})
                         }
                       
                         setTimeout(async () => {
@@ -269,8 +269,8 @@ export class AppGateway {
                             {
                                 for (let [key, value] of this.myMap)
                                 {
-                                    if(value.user_id === infos.who && value.room_id === room)
-                                        this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : true, "message" : `unmuted in ${room}`  , "user" :  infos.who})
+                                    if(value.user_id === infos.who)
+                                        this.server.sockets.sockets.get(key).emit("roomsOfUser", {"status" : true , "action" : "" ,"message" : `you are unmuted at  ${room}` , "user" :  `${user}`})
                                 }
                             }
                         }, time)
@@ -319,8 +319,10 @@ export class AppGateway {
                     }
                     for (let [key, value] of this.myMap)
                     {
-                        if(value.user_id === infos.who && value.room_id === room)
-                            this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : false, "message" : `banned in ${room}`  , "user" :  infos.who})
+                        // if(value.user_id === infos.who && value.room_id === room)
+                        //     this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : false, "message" : `banned in ${room}`  , "user" :  infos.who})
+                            if(value.user_id === infos.who)
+                                this.server.sockets.sockets.get(key).emit("roomsOfUser", {"status" : true , "action" : "" ,"message" : `you are banned at   ${room}` , "user" :  `${user}`})
                     }
 
                     setTimeout(async () => {
@@ -334,8 +336,8 @@ export class AppGateway {
                             }
                             for (let [key, value] of this.myMap)
                             {
-                                if(value.user_id === infos.who && value.room_id === room)
-                                    this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : true, "message" : `unbanned in ${room}`  , "user" :  infos.who})
+                                if(value.user_id === infos.who)
+                                    this.server.sockets.sockets.get(key).emit("roomsOfUser", {"status" : true , "action" : "" ,"message" : `you are unbanned at  ${room}` , "user" :  `${user}`})
                             }
 
                     }, time)
@@ -381,7 +383,7 @@ export class AppGateway {
                     for (let [key, value] of this.myMap)
                     {
                         if(value.user_id === infos.who)
-                            this.server.sockets.sockets.get(key).emit("disableWriting",{"status" : false, "message" : `kicked in ${room}`  , "user" :  infos.who})
+                            this.server.sockets.sockets.get(key).emit("roomsOfUser", {"status" : true , "action" : "" ,"message" : `you are kickedd from  ${room}` , "user" :  `${user}`})
                     }
 
                   
