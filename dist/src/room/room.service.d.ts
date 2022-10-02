@@ -8,6 +8,7 @@ export declare class RoomService {
     get_rooms(current_user: any): Promise<{
         id: number;
         user_role: string;
+        state_user: string;
         room: {
             type: string;
         };

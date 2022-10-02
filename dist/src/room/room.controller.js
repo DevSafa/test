@@ -32,7 +32,9 @@ let RoomController = class RoomController {
         return await this.roomService.create_post_room(createroomdto, req.user);
     }
     async get_rooms(req) {
-        return await this.roomService.get_rooms(req.user);
+        const ret = await this.roomService.get_rooms(req.user);
+        console.log(ret);
+        return ret;
     }
     async get_public_room(req) {
         return await this.roomService.get_public_room(req.user);

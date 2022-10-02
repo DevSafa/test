@@ -10,6 +10,7 @@ export declare class RoomController {
         };
         id: number;
         user_role: string;
+        state_user: string;
         room_id: string;
     }[]>;
     get_public_room(req: any): Promise<{

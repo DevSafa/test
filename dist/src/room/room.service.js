@@ -80,6 +80,7 @@ let RoomService = class RoomService {
                 id: true,
                 user_role: true,
                 room_id: true,
+                state_user: true,
                 room: {
                     select: {
                         type: true,

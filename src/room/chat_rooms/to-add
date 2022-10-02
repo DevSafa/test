@@ -1,0 +1,4 @@
+ban :
+- when banning or kicking a user must not refresh  messages and see the new messages  until it's unbanned in case of banned .
+    getRooms every room can have state_current_user on it if it's banned  doesn't allow him to click until is banned
+- action must be setAdmin to reload roams again and update state of user in each room 

@@ -64,6 +64,10 @@ let ChatRoomService = class ChatRoomService {
         return message;
     }
     async ban_mute_user_in_room(room, who, action, current_role) {
+        console.log("who : ", who);
+        console.log("room : ", room);
+        console.log("action : ", action);
+        console.log("current_role : ", current_role);
         let ret;
         if (current_role === "admin") {
             ret = await this.prisma.users_room.findFirst({
@@ -79,6 +83,7 @@ let ChatRoomService = class ChatRoomService {
             });
         }
         else if (current_role === "owner") {
+            console.log("hereeee\n");
             ret = await this.prisma.users_room.findFirst({
                 where: {
                     user_id: who,

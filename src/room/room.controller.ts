@@ -28,7 +28,9 @@ export class RoomController {
     async get_rooms(@Req() req)
     {
       // console.log("req.user : "  , req.user);
-        return  await this.roomService.get_rooms(req.user);
+      const ret = await this.roomService.get_rooms(req.user);
+      console.log(ret);
+    return  ret;
     }
 
     @UseInterceptors(DataRoomInterceptor)

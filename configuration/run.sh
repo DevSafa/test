@@ -30,9 +30,9 @@ echo "${orange}install postgres${NC}"
 docker compose up postgres -d
 
 
-# optional 
-echo "${orange}install pgadmin${NC}"
-docker compose up pgadmin -d 
+# # optional 
+# echo "${orange}install pgadmin${NC}"
+# docker compose up pgadmin -d 
 
 # -------------------------------------------------------------------------------
 # install dependencies required to run my server

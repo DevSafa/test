@@ -191,7 +191,7 @@ let AppGateway = class AppGateway {
                     client.emit("roomsOfUser", { "status": true, "action": "", "message": `${infos.who}  muted successfully`, "user": `${user}` });
                     for (let [key, value] of this.myMap) {
                         if (value.user_id === infos.who)
-                            this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "", "message": `you are muted at   ${room}`, "user": `${user}` });
+                            this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "setAdmin", "message": `you are muted at   ${room}`, "user": `${user}` });
                     }
                     setTimeout(async () => {
                         if (!await this.chatroomservice.update_ban_mute_user_in_room(room, infos.who))
@@ -199,7 +199,7 @@ let AppGateway = class AppGateway {
                         else {
                             for (let [key, value] of this.myMap) {
                                 if (value.user_id === infos.who)
-                                    this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "", "message": `you are unmuted at  ${room}`, "user": `${user}` });
+                                    this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "setAdmin", "message": `you are unmuted at  ${room}`, "user": `${user}` });
                             }
                         }
                     }, time);
@@ -239,7 +239,7 @@ let AppGateway = class AppGateway {
                     }
                     for (let [key, value] of this.myMap) {
                         if (value.user_id === infos.who)
-                            this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "", "message": `you are banned at   ${room}`, "user": `${user}` });
+                            this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "setAdmin", "message": `you are banned at   ${room}`, "user": `${user}` });
                     }
                     setTimeout(async () => {
                         if (!await this.chatroomservice.update_ban_mute_user_in_room(room, infos.who))
@@ -251,7 +251,7 @@ let AppGateway = class AppGateway {
                         }
                         for (let [key, value] of this.myMap) {
                             if (value.user_id === infos.who)
-                                this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "", "message": `you are unbanned at  ${room}`, "user": `${user}` });
+                                this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "setAdmin", "message": `you are unbanned at  ${room}`, "user": `${user}` });
                         }
                     }, time);
                 }
@@ -274,16 +274,17 @@ let AppGateway = class AppGateway {
         let error = 0;
         try {
             if (typeof check !== "undefined" && check.user_id === user && check.room_id === room && (check.user_role === "owner" || check.user_role === "admin")) {
-                if (await this.chatroomservice.ban_mute_user_in_room(room, infos.who, "kicked", check.current_role)) {
+                console.log("enter heree\n");
+                if (await this.chatroomservice.ban_mute_user_in_room(room, infos.who, "kicked", check.user_role)) {
                     client.emit("roomsOfUser", { "status": true, "action": "leave", "message": `${infos.who}  kicked successfully`, "user": user });
                     for (let [key, value] of this.myMap) {
-                        if (value.user_id === infos.who && value.room_id === room) {
+                        if (value.user_id === infos.who) {
                             this.server.sockets.sockets.get(key).leave(room);
                         }
                     }
                     for (let [key, value] of this.myMap) {
                         if (value.user_id === infos.who)
-                            this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "", "message": `you are kickedd from  ${room}`, "user": `${user}` });
+                            this.server.sockets.sockets.get(key).emit("roomsOfUser", { "status": true, "action": "setAdmin", "message": `you are kickedd from  ${room}`, "user": `${user}` });
                     }
                 }
                 else
